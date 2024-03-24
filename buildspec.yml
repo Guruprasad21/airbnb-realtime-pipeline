@@ -1,0 +1,31 @@
+version: 0.1
+phases:
+  install:
+    runtime-version:
+      python: 3.11
+    commands:
+      - echo "Installing dependencies ...."
+      - pip install -r requirement.txt -t lib
+  build:
+    commands:
+      - echo "Zipping deployment packages..."
+      - cd lib
+      - zip -r9 ../deployment_airbnb_generator.zip
+      - zip -r9 ../deployment_airbnb_process.zip
+      - zip -r9 ../deployment_airbnb_store.zip
+      - cd ..
+      - zip -g deployment_airbnb_generator.zip airbnb_producer_lambda.py
+      - zip -g deployment_airbnb_process.zip airbnb_lambda_process_data.py
+      - zip -g deployment_airbnb_store.zip airbnb_lambda_store_data.py
+  post_build:
+    commands:
+      - echo "Uploading zip files to s3.."
+      - aws s3 cp deployment_airbnb_generator.zip s3://my-lambda-builds-zip/
+      - aws s3 cp deployment_airbnb_process.zip s3://my-lambda-builds-zip/
+      - aws s3 cp deployment_airbnb_store.zip s3://my-lambda-builds-zip/
+      - echo "Updating respective lambda function from s3 ..."
+      - aws lambda update-function-code --function-name airbnb-lambda-data-generator --s3-bucket my-lambda-builds-zip --s3-key deployment_airbnb_generator.zip
+      - echo "Deployed generator lambda code"
+      - aws lambda update-function-code --function-name airbnb-lambda-filter --s3-bucket my-lambda-builds-zip --s3-key deployment_airbnb_process.zip
+      - echo "Deployed Process lambda code"
+      - aws lambda update-function-code --function-name airbnb-lambda-load-data-tos3 --s3-bucket my-lambda-builds-zip --s3-key deployment_airbnb_store.zip
