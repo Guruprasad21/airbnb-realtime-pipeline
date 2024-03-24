@@ -14,10 +14,12 @@ phases:
       - zip -r9 ../deployment_airbnb_generator.zip .
       - zip -r9 ../deployment_airbnb_process.zip .
       - zip -r9 ../deployment_airbnb_store.zip .
+      - echo "Contents of lib:"
+      - ls
       - cd ..
       - pwd
       - echo "Contents of current directory:"
-      - ls
+      - ls -a
       - zip -g deployment_airbnb_generator.zip airbnb_producer_lambda.py
       - zip -g deployment_airbnb_process.zip airbnb_lambda_process_data.py
       - zip -g deployment_airbnb_store.zip airbnb_lambda_store_data.py
