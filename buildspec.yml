@@ -10,21 +10,11 @@ phases:
     commands:
       - echo "Zipping deployment packages..."
       - pwd
-      - ls
-      - ls lib
-      - cd lib
-      - pwd
-      - ls
-      - ls ./
-      - zip -r9 ../deployment_airbnb_generator.zip .
-      - zip -r9 ../deployment_airbnb_process.zip .
-      - zip -r9 ../deployment_airbnb_store.zip .
-      - echo "Contents of lib:"
-      - ls
-      - cd ..
-      - pwd
-      - echo "Contents of current directory:"
-      - ls -a
+      - ls -ltrh
+      - zip -r9 deployment_airbnb_generator.zip ./lib/
+      - cp deployment_airbnb_generator.zip deployment_airbnb_process.zip
+      - cp deployment_airbnb_generator.zip deployment_airbnb_store.zip
+      - ls -ltrh
       - zip -g deployment_airbnb_generator.zip airbnb_producer_lambda.py
       - zip -g deployment_airbnb_process.zip airbnb_lambda_process_data.py
       - zip -g deployment_airbnb_store.zip airbnb_lambda_store_data.py
