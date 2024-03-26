@@ -11,9 +11,11 @@ phases:
       - echo "Zipping deployment packages..."
       - pwd
       - ls
+      - ls lib
       - cd lib
       - pwd
       - ls
+      - ls ./
       - zip -r9 ../deployment_airbnb_generator.zip .
       - zip -r9 ../deployment_airbnb_process.zip .
       - zip -r9 ../deployment_airbnb_store.zip .
