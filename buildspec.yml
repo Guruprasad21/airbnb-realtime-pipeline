@@ -10,6 +10,7 @@ phases:
     commands:
       - echo "Zipping deployment packages..."
       - pwd
+      - ls
       - cd lib
       - pwd
       - ls
