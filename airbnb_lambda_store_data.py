@@ -1,15 +1,19 @@
-import pandas as pd
-import json
-from datetime import datetime
-import traceback
 import os
 import sys
-
-TARGET_BUCKET_NAME = "airbnb-processed-data"
 
 lib_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'lib')
 sys.path.append(lib_path)
 print(lib_path)
+
+import pandas as pd
+import json
+from datetime import datetime
+import traceback
+
+
+TARGET_BUCKET_NAME = "airbnb-processed-data"
+
+
 
 def store_file_to_s3(data):
     try:
