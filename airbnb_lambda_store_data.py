@@ -40,6 +40,8 @@ def lambda_handler(event, context):
             print("Received no records")
     except Exception as e:
         print("Error occurred while trying to store Airbnb data to s3")
+        print("Event received:  ")
+        print(event)
         print(traceback.format_exc())
 
 

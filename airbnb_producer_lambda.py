@@ -20,9 +20,9 @@ def random_data_generator():
     }
 
 def lambda_handler(event, context):
-
+    message_cnt = event['message_count'] if 'message_count' in event and isinstance(event['message_count'], int) else 30
     i=0
-    while i<30:
+    while i<message_cnt:
         data = json.dumps(random_data_generator())
         res = sqs_client.send_message(QueueUrl = SQL_QUEUE_URL, MessageBody = data )
         print(data)
